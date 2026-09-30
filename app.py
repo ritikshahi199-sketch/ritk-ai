@@ -87,10 +87,7 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- Input Form with Suggestions Box -->
-        <div class="bg-red-950/90 border-t border-red-900 p-3 md:p-4 shadow-2xl backdrop-blur-md shrink-0 relative">
-            <div id="suggestions-box" class="absolute bottom-full left-4 right-4 mb-2 bg-red-950/95 border border-red-800 rounded-xl shadow-2xl hidden max-h-40 overflow-y-auto z-50"></div>
-            
+        <div class="bg-red-950/90 border-t border-red-900 p-3 md:p-4 shadow-2xl backdrop-blur-md shrink-0">
             <form id="chat-form" class="max-w-4xl mx-auto flex items-center gap-2 md:gap-3 bg-red-900/50 border border-red-700 rounded-2xl px-3 md:px-4 py-2.5 shadow-inner focus-within:border-red-400 transition-all">
                 
                 <input type="file" id="image-input" accept="image/*" class="hidden" onchange="previewImage(event)">
@@ -103,7 +100,7 @@ HTML_TEMPLATE = """
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
-                <input type="text" id="user-input" placeholder="Type or search here..." autocomplete="off" oninput="showSuggestions(this.value)" class="flex-1 bg-transparent border-none px-1 md:px-2 py-1 text-xs md:text-sm focus:outline-none text-slate-100 placeholder-red-300/60">
+                <input type="text" id="user-input" placeholder="Type or search here..." autocomplete="off" class="flex-1 bg-transparent border-none px-1 md:px-2 py-1 text-xs md:text-sm focus:outline-none text-slate-100 placeholder-red-300/60">
                 
                 <button type="submit" id="send-btn" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-medium text-xs md:text-sm transition-all shadow-lg shadow-red-600/30 cursor-pointer flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-paper-plane"></i>
@@ -123,68 +120,6 @@ HTML_TEMPLATE = """
         const sidebarOverlay = document.getElementById('sidebar-overlay');
         const historyList = document.getElementById('history-list');
         const langSelect = document.getElementById('lang-select');
-        const suggestionsBox = document.getElementById('suggestions-box');
-
-        const famousTopics = {
-            'a': ['Artificial Intelligence', 'Apple Inc.', 'Albert Einstein', 'Agra Taj Mahal', 'Australia'],
-            'b': ['Bitcoin', 'Bill Gates', 'Basketball', 'Berlin', 'Black Hole'],
-            'c': ['ChatGPT', 'Cricket', 'Climate Change', 'Canada', 'Coding'],
-            'd': ['Delhi', 'Deep Learning', 'Donald Trump', 'Dinosaurs', 'Data Science'],
-            'e': ['Elon Musk', 'Eiffel Tower', 'Earthquake', 'Electric Cars', 'Egypt'],
-            'f': ['Football', 'Facebook', 'France', 'Freelancing', 'Physics'],
-            'g': ['Google', 'Germany', 'Great Wall of China', 'Galaxy', 'Guitar'],
-            'h': ['HTML & CSS', 'History', 'Himalayas', 'Hollywood', 'Hubble Telescope'],
-            'i': ['India', 'Instagram', 'Artificial Intelligence', 'iPhone', 'Islamabad'],
-            'j': ['JavaScript', 'Japan', 'Joe Biden', 'Jupyter Notebook', 'Jungle'],
-            'k': ['Kolkata', 'Kashmir', 'kangaroo', 'Knowledge', 'Kingfisher'],
-            'l': ['London', 'Linux', 'Python (Language)', 'LeBron James', 'Lightning'],
-            'm': ['Mumbai Indians', 'Machine Learning', 'Moon', 'Microsoft', 'Modi'],
-            'n': ['Node.js', 'New York', 'NASA', 'Neural Networks', 'Netflix'],
-            'o': ['Olympics', 'Oxford University', 'Ozone Layer', 'Online Gaming', 'Opera'],
-            'p': ['Python', 'Prime Minister', 'Paris', 'Pakistan', 'Periodic Table'],
-            'q': ['Quantum Computing', 'Qatar', 'Queen Elizabeth', 'Quotes', 'Quasar'],
-            'r': ['Ritik Shahi', 'ReactJS', 'Robot', 'Russia', 'Rome'],
-            's': ['SpaceX', 'Sachin Tendulkar', 'Silicon Valley', 'Solar System', 'Smartphones'],
-            't': ['Taj Mahal', 'TypeScript', 'Technology', 'Tokyo', 'Titanic'],
-            'u': ['Uttar Pradesh', 'USA', 'Universe', 'Ukraine', 'University'],
-            'v': ['Virat Kohli', 'Venus', 'Varanasi', 'Virtual Reality', '180°C'],
-            'w': ['Web Development', 'WhatsApp', 'Windows', 'World War', 'Python Web'],
-            'x': ['X Box', 'X-Ray', 'Xerox', 'Xenon', 'Xylophone'],
-            'y': ['YouTube', 'Yoga', 'Yellow Sea', 'Yemen', 'Youth'],
-            'z': ['Zayn Malik', 'Zeus', 'Zero', 'Zinc', 'Zoo']
-        };
-
-        function showSuggestions(val) {
-            val = val.trim().toLowerCase();
-            if (val.length === 0) {
-                suggestionsBox.classList.add('hidden');
-                suggestionsBox.innerHTML = '';
-                return;
-            }
-            const firstLetter = val.charAt(0);
-            let matches = famousTopics[firstLetter] || [];
-            
-            // Filter further based on typed text
-            matches = matches.filter(item => item.toLowerCase().includes(val));
-
-            if (matches.length > 0) {
-                let html = '';
-                matches.forEach(match => {
-                    html += `<div onclick="selectSuggestion('${match}')" class="p-2.5 hover:bg-red-900 cursor-pointer text-xs md:text-sm text-slate-200 border-b border-red-900/50">${match}</div>`;
-                });
-                suggestionsBox.innerHTML = html;
-                suggestionsBox.classList.remove('hidden');
-            } else {
-                suggestionsBox.classList.add('hidden');
-                suggestionsBox.innerHTML = '';
-            }
-        }
-
-        function selectSuggestion(text) {
-            userInput.value = text;
-            suggestionsBox.classList.add('hidden');
-            suggestionsBox.innerHTML = '';
-        }
 
         let base64Image = null;
         let currentUtterance = null;
@@ -286,7 +221,6 @@ HTML_TEMPLATE = """
 
                 recognition.onresult = (event) => {
                     userInput.value = event.results[0][0].transcript;
-                    showSuggestions(userInput.value);
                     micBtn.classList.remove('text-red-300', 'animate-pulse');
                 };
                 recognition.onerror = () => micBtn.classList.remove('text-red-300', 'animate-pulse');
@@ -300,7 +234,6 @@ HTML_TEMPLATE = """
             const message = userInput.value.trim();
             if (!message && !base64Image) return;
 
-            suggestionsBox.classList.add('hidden');
             addHistoryItem(message || "Photo Query");
 
             let userHTML = `<div class="flex items-start justify-end space-x-3"><div class="bg-gradient-to-r from-red-600 to-rose-600 p-3.5 md:p-4 rounded-2xl max-w-[85%] md:max-w-xl text-xs md:text-sm shadow-xl space-y-2 text-white">`;
@@ -402,7 +335,7 @@ def chat():
         )
 
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama3-70b-8192",
             messages=[
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": user_message},
