@@ -22,10 +22,10 @@ HTML_TEMPLATE = """
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .glow-effect { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+        .glow-effect { box-shadow: 0 0 25px rgba(239, 68, 68, 0.3); }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #450a0a; }
-        ::-webkit-scrollbar-thumb { background: #7f1d1d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-red-950 text-slate-100 h-[100dvh] flex overflow-hidden font-sans">
@@ -35,7 +35,7 @@ HTML_TEMPLATE = """
 
     <!-- Sidebar for Chat History -->
     <div id="sidebar" class="fixed md:static inset-y-0 left-0 bg-red-950 border-r border-red-900 w-72 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 z-40 shadow-2xl">
-        <div class="p-4 border-b border-red-900 flex items-center justify-between bg-red-950/80">
+        <div class="p-4 border-b border-red-900 flex items-center justify-between bg-red-900/40">
             <span class="font-bold text-yellow-400 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left"></i> Chat History</span>
             <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white md:hidden cursor-pointer p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
@@ -47,13 +47,13 @@ HTML_TEMPLATE = """
         </div>
 
         <div id="history-list" class="flex-1 overflow-y-auto px-3 space-y-2 text-sm text-slate-300"></div>
-        <div class="p-4 border-t border-red-900 text-xs text-red-400 text-center bg-red-950/80">
+        <div class="p-4 border-t border-red-900 text-xs text-red-400 text-center bg-red-900/40">
             Ritik Assistant Pro &bull; Secure v4.0
         </div>
     </div>
 
     <!-- Main Chat Section -->
-    <div class="flex-1 flex flex-col h-[100dvh] relative bg-gradient-to-br from-red-950 via-zinc-950 to-black w-full overflow-hidden">
+    <div class="flex-1 flex flex-col h-[100dvh] relative bg-gradient-to-br from-red-950 via-red-900 to-rose-950 w-full overflow-hidden">
         
         <!-- Header -->
         <header class="bg-red-950/90 backdrop-blur-md border-b border-red-900 p-3 md:p-4 flex items-center justify-between shadow-lg z-10 shrink-0">
@@ -80,7 +80,7 @@ HTML_TEMPLATE = """
         <div id="chat-container" class="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-6 max-w-4xl w-full mx-auto">
             <div class="flex items-start space-x-3">
                 <div class="bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shadow-red-500/20 shrink-0">AI</div>
-                <div class="bg-red-900/40 border border-red-800/60 p-3.5 md:p-4 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl leading-relaxed glow-effect">
+                <div class="bg-red-900/50 border border-red-700/60 p-3.5 md:p-4 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl leading-relaxed glow-effect">
                     Hello! Main Ritik Assistant hoon, jise Ritik Shahi ne banaya hai. Main aapki kya madad kar sakta hoon?
                 </div>
             </div>
@@ -88,7 +88,7 @@ HTML_TEMPLATE = """
 
         <!-- Image Preview Area -->
         <div id="preview-container" class="max-w-4xl mx-auto w-full px-3 md:px-4 hidden mb-2 shrink-0">
-            <div class="relative inline-block bg-red-900/60 p-2 rounded-xl border border-red-800 shadow-lg">
+            <div class="relative inline-block bg-red-900/60 p-2 rounded-xl border border-red-700 shadow-lg">
                 <img id="image-preview" class="h-16 md:h-20 rounded-lg object-cover">
                 <button onclick="removeImage()" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full h-5 w-5 md:h-6 md:w-6 flex items-center justify-center text-xs shadow-md cursor-pointer hover:bg-red-700 transition-colors"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -96,19 +96,19 @@ HTML_TEMPLATE = """
 
         <!-- Input Form -->
         <div class="bg-red-950/90 border-t border-red-900 p-3 md:p-4 shadow-2xl backdrop-blur-md shrink-0">
-            <form id="chat-form" class="max-w-4xl mx-auto flex items-center gap-2 md:gap-3 bg-red-900/40 border border-red-800 rounded-2xl px-3 md:px-4 py-2.5 shadow-inner focus-within:border-red-500 transition-all">
+            <form id="chat-form" class="max-w-4xl mx-auto flex items-center gap-2 md:gap-3 bg-red-900/50 border border-red-700 rounded-2xl px-3 md:px-4 py-2.5 shadow-inner focus-within:border-red-400 transition-all">
                 
                 <input type="file" id="image-input" accept="image/*" class="hidden" onchange="previewImage(event)">
                 
-                <button type="button" onclick="document.getElementById('image-input').click()" class="text-slate-400 hover:text-yellow-400 p-1.5 md:p-2 transition-colors cursor-pointer text-base md:text-lg" title="Upload Photo">
+                <button type="button" onclick="document.getElementById('image-input').click()" class="text-slate-300 hover:text-yellow-400 p-1.5 md:p-2 transition-colors cursor-pointer text-base md:text-lg" title="Upload Photo">
                     <i class="fa-solid fa-circle-plus"></i>
                 </button>
 
-                <button type="button" id="mic-btn" onclick="toggleSpeechRecognition()" class="text-slate-400 hover:text-red-400 p-1.5 md:p-2 transition-colors cursor-pointer text-base md:text-lg" title="Speak">
+                <button type="button" id="mic-btn" onclick="toggleSpeechRecognition()" class="text-slate-300 hover:text-red-300 p-1.5 md:p-2 transition-colors cursor-pointer text-base md:text-lg" title="Speak">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
-                <input type="text" id="user-input" placeholder="Type or search here..." autocomplete="off" class="flex-1 bg-transparent border-none px-1 md:px-2 py-1 text-xs md:text-sm focus:outline-none text-slate-100 placeholder-slate-400">
+                <input type="text" id="user-input" placeholder="Type or search here..." autocomplete="off" class="flex-1 bg-transparent border-none px-1 md:px-2 py-1 text-xs md:text-sm focus:outline-none text-slate-100 placeholder-red-300/60">
                 
                 <button type="submit" id="send-btn" class="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-xl font-medium text-xs md:text-sm transition-all shadow-lg shadow-red-600/30 cursor-pointer flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-paper-plane"></i>
@@ -162,7 +162,7 @@ HTML_TEMPLATE = """
             chatContainer.innerHTML = `
                 <div class="flex items-start space-x-3">
                     <div class="bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shadow-red-500/20 shrink-0">AI</div>
-                    <div class="bg-red-900/40 border border-red-800/60 p-3.5 md:p-4 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl leading-relaxed glow-effect">
+                    <div class="bg-red-900/50 border border-red-700/60 p-3.5 md:p-4 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl leading-relaxed glow-effect">
                         Hello! Main Ritik Assistant hoon, jise Ritik Shahi ne banaya hai. Main aapki kya madad kar sakta hoon?
                     </div>
                 </div>
@@ -179,7 +179,7 @@ HTML_TEMPLATE = """
             historyList.innerHTML = '';
             chatHistoryData.forEach((item) => {
                 historyList.innerHTML += `
-                    <div class="p-2.5 rounded-xl bg-red-900/40 hover:bg-red-900/60 cursor-pointer truncate transition-all border border-red-800/50 flex items-center gap-2 text-xs md:text-sm">
+                    <div class="p-2.5 rounded-xl bg-red-900/50 hover:bg-red-800 cursor-pointer truncate transition-all border border-red-700/50 flex items-center gap-2 text-xs md:text-sm">
                         <i class="fa-solid fa-message text-yellow-400"></i> ${item}
                     </div>
                 `;
@@ -225,14 +225,14 @@ HTML_TEMPLATE = """
                 recognition.lang = langSelect.value === 'hi' ? 'hi-IN' : 'en-US';
                 
                 const micBtn = document.getElementById('mic-btn');
-                micBtn.classList.add('text-red-400', 'animate-pulse');
+                micBtn.classList.add('text-red-300', 'animate-pulse');
 
                 recognition.onresult = (event) => {
                     userInput.value = event.results[0][0].transcript;
-                    micBtn.classList.remove('text-red-400', 'animate-pulse');
+                    micBtn.classList.remove('text-red-300', 'animate-pulse');
                 };
-                recognition.onerror = () => micBtn.classList.remove('text-red-400', 'animate-pulse');
-                recognition.onend = () => micBtn.classList.remove('text-red-400', 'animate-pulse');
+                recognition.onerror = () => micBtn.classList.remove('text-red-300', 'animate-pulse');
+                recognition.onend = () => micBtn.classList.remove('text-red-300', 'animate-pulse');
                 recognition.start();
             }
         }
@@ -265,7 +265,7 @@ HTML_TEMPLATE = """
             chatContainer.innerHTML += `
                 <div id="${loadingId}" class="flex items-start space-x-3">
                     <div class="bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shrink-0">AI</div>
-                    <div class="bg-red-900/40 border border-red-800 p-3.5 md:p-4 rounded-2xl text-xs md:text-sm animate-pulse text-red-300">Soch raha hai...</div>
+                    <div class="bg-red-900/50 border border-red-700 p-3.5 md:p-4 rounded-2xl text-xs md:text-sm animate-pulse text-red-200">Soch raha hai...</div>
                 </div>
             `;
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -284,10 +284,10 @@ HTML_TEMPLATE = """
                 chatContainer.innerHTML += `
                     <div class="flex items-start space-x-3">
                         <div class="bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shrink-0">AI</div>
-                        <div class="bg-red-900/40 border border-red-800/60 p-4 md:p-5 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl whitespace-pre-wrap leading-relaxed space-y-3 relative glow-effect">
+                        <div class="bg-red-900/50 border border-red-700/60 p-4 md:p-5 rounded-2xl max-w-[85%] md:max-w-2xl text-xs md:text-sm shadow-xl whitespace-pre-wrap leading-relaxed space-y-3 relative glow-effect">
                             <div>${data.reply}</div>
                             <div class="flex justify-end gap-3 pt-3 border-t border-red-800/60">
-                                <button onclick="toggleSpeech(\`${safeReply}\`, this)" class="text-slate-400 hover:text-yellow-400 text-xs flex items-center gap-1.5 cursor-pointer transition-colors" title="Sunen">
+                                <button onclick="toggleSpeech(\`${safeReply}\`, this)" class="text-slate-300 hover:text-yellow-400 text-xs flex items-center gap-1.5 cursor-pointer transition-colors" title="Sunen">
                                     <i class="fa-solid fa-volume-high"></i> Sunen
                                 </button>
                             </div>
@@ -299,7 +299,7 @@ HTML_TEMPLATE = """
                 chatContainer.innerHTML += `
                     <div class="flex items-start space-x-3">
                         <div class="bg-red-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs shadow-lg shrink-0">ERR</div>
-                        <div class="bg-red-950 border border-red-800 p-4 rounded-2xl max-w-xl text-xs md:text-sm text-red-400 shadow-xl">Server connection error!</div>
+                        <div class="bg-red-950 border border-red-700 p-4 rounded-2xl max-w-xl text-xs md:text-sm text-red-300 shadow-xl">Server connection error!</div>
                     </div>
                 `;
             }
@@ -343,7 +343,7 @@ def chat():
         )
 
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": user_message},
