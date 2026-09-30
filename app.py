@@ -4,7 +4,6 @@ from groq import Groq
 
 app = Flask(__name__)
 
-# Server ke environment variable se secure tarike se API key uthayega
 API_KEY = os.environ.get("GROQ_API_KEY")
 
 def get_client():
@@ -30,10 +29,8 @@ HTML_TEMPLATE = """
 </head>
 <body class="bg-red-950 text-slate-100 h-[100dvh] flex overflow-hidden font-sans">
 
-    <!-- Sidebar Overlay for Mobile -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-30 hidden md:hidden transition-opacity"></div>
 
-    <!-- Sidebar for Chat History -->
     <div id="sidebar" class="fixed md:static inset-y-0 left-0 bg-red-950 border-r border-red-900 w-72 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 z-40 shadow-2xl">
         <div class="p-4 border-b border-red-900 flex items-center justify-between bg-red-900/40">
             <span class="font-bold text-yellow-400 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left"></i> Chat History</span>
@@ -52,10 +49,8 @@ HTML_TEMPLATE = """
         </div>
     </div>
 
-    <!-- Main Chat Section -->
     <div class="flex-1 flex flex-col h-[100dvh] relative bg-gradient-to-br from-red-950 via-red-900 to-rose-950 w-full overflow-hidden">
         
-        <!-- Header -->
         <header class="bg-red-950/90 backdrop-blur-md border-b border-red-900 p-3 md:p-4 flex items-center justify-between shadow-lg z-10 shrink-0">
             <div class="flex items-center gap-2 md:gap-3">
                 <button onclick="toggleSidebar()" class="text-slate-300 hover:text-white text-lg p-2 cursor-pointer transition-colors"><i class="fa-solid fa-bars"></i></button>
@@ -76,7 +71,6 @@ HTML_TEMPLATE = """
             </div>
         </header>
 
-        <!-- Chat Container -->
         <div id="chat-container" class="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-6 max-w-4xl w-full mx-auto">
             <div class="flex items-start space-x-3">
                 <div class="bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shadow-red-500/20 shrink-0">AI</div>
@@ -86,7 +80,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- Image Preview Area -->
         <div id="preview-container" class="max-w-4xl mx-auto w-full px-3 md:px-4 hidden mb-2 shrink-0">
             <div class="relative inline-block bg-red-900/60 p-2 rounded-xl border border-red-700 shadow-lg">
                 <img id="image-preview" class="h-16 md:h-20 rounded-lg object-cover">
@@ -94,7 +87,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- Input Form -->
         <div class="bg-red-950/90 border-t border-red-900 p-3 md:p-4 shadow-2xl backdrop-blur-md shrink-0">
             <form id="chat-form" class="max-w-4xl mx-auto flex items-center gap-2 md:gap-3 bg-red-900/50 border border-red-700 rounded-2xl px-3 md:px-4 py-2.5 shadow-inner focus-within:border-red-400 transition-all">
                 
@@ -298,7 +290,7 @@ HTML_TEMPLATE = """
                 document.getElementById(loadingId).remove();
                 chatContainer.innerHTML += `
                     <div class="flex items-start space-x-3">
-                        <div class="bg-red-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shrink-0">ERR</div>
+                        <div class="bg-red-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs shadow-lg shrink-0">ERR</div>
                         <div class="bg-red-950 border border-red-700 p-4 rounded-2xl max-w-xl text-xs md:text-sm text-red-300 shadow-xl">Server connection error!</div>
                     </div>
                 `;
@@ -343,7 +335,7 @@ def chat():
         )
 
         completion = client.chat.completions.create(
-            model="llama3-70b-versatile",
+            model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": user_message},
