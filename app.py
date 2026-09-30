@@ -298,7 +298,7 @@ HTML_TEMPLATE = """
                 document.getElementById(loadingId).remove();
                 chatContainer.innerHTML += `
                     <div class="flex items-start space-x-3">
-                        <div class="bg-red-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs shadow-lg shrink-0">ERR</div>
+                        <div class="bg-red-600 text-white rounded-2xl h-8 w-8 md:h-10 md:w-10 flex items-center justify-center font-bold text-xs md:text-sm shadow-lg shrink-0">ERR</div>
                         <div class="bg-red-950 border border-red-700 p-4 rounded-2xl max-w-xl text-xs md:text-sm text-red-300 shadow-xl">Server connection error!</div>
                     </div>
                 `;
@@ -339,11 +339,11 @@ def chat():
             "You are Ritik Assistant, a highly intelligent and helpful AI created by Ritik Shahi. "
             "Whenever anyone asks who created you or who built you (in any language like English, Hindi, etc.), "
             "you must proudly state that you were created by Ritik Shahi. "
-            f"{lang_prompt} Provide accurate details, context, and proper responses."
+            f"{lang_prompt} Provide accurate details, context, and proper responses like ChatGPT or Gemini."
         )
 
         completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="llama3-70b-versatile",
             messages=[
                 {"role": "system", "content": system_instruction},
                 {"role": "user", "content": user_message},
